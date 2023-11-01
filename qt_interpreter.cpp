@@ -58,12 +58,6 @@ void QtInterpreter::parseAndEvaluate(QString entry) {
                             graphic.value.line_value.second.y
                         );
 
-                        /*std::cout << graphic.value.line_value.first.x << '\n';
-                        std::cout << graphic.value.line_value.first.y << '\n';
-                        std::cout << graphic.value.line_value.second.x << '\n';
-                        std::cout << graphic.value.line_value.second.y << '\n';
-                        std::cout << "----------------------------------------" << '\n';*/
-
                         emit drawGraphic(line);
                     }
                     else if (graphic.type == ArcType) {
@@ -79,11 +73,7 @@ void QtInterpreter::parseAndEvaluate(QString entry) {
                                 std::abs(graphic.value.arc_value.start.y - graphic.value.arc_value.center.y)),
                             nullptr
                         );
-                       /* std::cout << graphic.value.arc_value.center.x << '\n';
-                        std::cout << graphic.value.arc_value.center.y << '\n';
-                        std::cout << graphic.value.arc_value.start.x << '\n';
-                        std::cout << graphic.value.arc_value.start.y << '\n';
-                        std::cout << "----------------------------------------" << '\n';*/
+                       
                         double angleInRadians = std::atan(std::abs(graphic.value.arc_value.start.y - graphic.value.arc_value.center.y) /
                             std::abs(graphic.value.arc_value.center.x - graphic.value.arc_value.start.x));
 
@@ -95,7 +85,6 @@ void QtInterpreter::parseAndEvaluate(QString entry) {
                         // Set the start and span angle in degrees 
                         arc->setSpanAngle(spanInDegrees);
                         arc->setStartAngle(angleInDegrees);
-
 
                         emit drawGraphic(arc);
                     }
