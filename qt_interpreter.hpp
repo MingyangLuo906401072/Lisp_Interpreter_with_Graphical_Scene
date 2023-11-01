@@ -4,29 +4,25 @@
 #include <string>
 
 #include <QObject>
+#include <QLabel>
 #include <QString>
 #include <QGraphicsItem>
 
 #include "interpreter.hpp"
 
-class QtInterpreter: public QObject, private Interpreter{
-Q_OBJECT
+class QtInterpreter : public QObject, private Interpreter {
+	Q_OBJECT
 
 public:
-
-  QtInterpreter(QObject * parent = nullptr);
+	QtInterpreter(QObject* parent = nullptr);
 
 signals:
-
-  void drawGraphic(QGraphicsItem * item);
-
-  void info(QString message);
-
-  void error(QString message);
+	void drawGraphic(QGraphicsItem* item);
+	void info(QString message);
+	void error(QString message);
+	void clear();
 
 public slots:
-
-  void parseAndEvaluate(QString entry);
+	void parseAndEvaluate(QString entry);
 };
-
 #endif

@@ -1,8 +1,9 @@
 #ifndef TOKENIZE_H
 #define TOKENIZE_H
 
-#include <istream>
+#include <iostream>
 #include <deque>
+#include <string>
 
 typedef std::deque<std::string> TokenSequenceType;
 
@@ -13,6 +14,6 @@ const char COMMENT = ';';
 // split string into a list of tokens where a token is one of
 // OPEN or CLOSE or a space-delimited string
 // ignores any whitespace and from any ";" to end-of-line
-TokenSequenceType tokenize(std::istream & seq);
+TokenSequenceType tokenize(std::istream& seq);
 
 #endif

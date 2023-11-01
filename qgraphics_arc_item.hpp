@@ -6,14 +6,9 @@
 class QGraphicsArcItem: public QGraphicsEllipseItem{
 
 public:
+	QGraphicsArcItem(qreal x, qreal y, qreal width, qreal height, QGraphicsItem *parent = nullptr);
+	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-  QGraphicsArcItem(qreal x, qreal y, qreal width, qreal height,
-		   QGraphicsItem *parent = nullptr);
-
-  void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
-private:
 };
-
 
 #endif

@@ -1,15 +1,23 @@
 #include "canvas_widget.hpp"
 
-#include <QWidget>
-#include <QGraphicsItem>
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QLayout>
-
 CanvasWidget::CanvasWidget(QWidget * parent): QWidget(parent){
-  // TODO: your code here...
+    // Create a QGraphicsScene to hold the graphics items
+    scene = new QGraphicsScene(this);
+
+    // Create a QGraphicsView to display the scene
+    view = new QGraphicsView(scene, this);
+
+    // Set up the layout to fill the widget with the view
+    layout = new QVBoxLayout(this);
+    layout->addWidget(view);
 }
 
 void CanvasWidget::addGraphic(QGraphicsItem * item){
-  // TODO: your code here...
+    // Add the given graphics item to the scene for display
+    scene->addItem(item);
+}
+
+void CanvasWidget::clear() {
+    // Remove all graphics items from the scene
+    scene->clear();
 }

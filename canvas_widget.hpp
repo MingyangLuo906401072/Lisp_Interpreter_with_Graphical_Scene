@@ -2,6 +2,10 @@
 #define CANVAS_WIDGET_HPP
 
 #include <QWidget>
+#include <QGraphicsItem>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QLayout>
 
 class QGraphicsItem;
 class QGraphicsScene;
@@ -16,10 +20,12 @@ public:
 public slots:
 
   void addGraphic(QGraphicsItem * item);
+  void clear();
 
 private:
-
-  QGraphicsScene * scene;
+	QGraphicsView* view;
+    QGraphicsScene * scene;
+	QVBoxLayout* layout;
 };
 
 #endif

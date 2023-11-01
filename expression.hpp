@@ -2,6 +2,7 @@
 #define TYPES_HPP
 
 // system includes
+#include <iostream>
 #include <string>
 #include <vector>
 #include <tuple>
@@ -108,6 +109,8 @@ typedef Expression (*Procedure)(const std::vector<Atom> & args);
 std::ostream & operator<<(std::ostream & out, const Expression & exp);
 
 // map a token to an Atom
+bool is_valid_number(const std::string& token);
+bool is_valid_bool(const std::string& token);
 bool token_to_atom(const std::string & token, Atom & atom);
 
 #endif

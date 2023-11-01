@@ -120,3 +120,8 @@ if(UNIX AND NOT APPLE AND CMAKE_COMPILER_IS_GNUCXX AND TIDY)
     ${CMAKE_CURRENT_SOURCE_DIR}/scripts/tidy.sh
     )
 endif()
+
+if(WIN32)
+  add_definitions(-DNOGDI)
+endif()
+
