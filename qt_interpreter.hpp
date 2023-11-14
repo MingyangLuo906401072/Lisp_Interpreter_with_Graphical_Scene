@@ -15,6 +15,7 @@ class QtInterpreter : public QObject, private Interpreter {
 
 public:
 	QtInterpreter(QObject* parent = nullptr);
+	const std::vector<Atom>& getGraphicsVector() const;
 
 signals:
 	void drawGraphic(QGraphicsItem* item);

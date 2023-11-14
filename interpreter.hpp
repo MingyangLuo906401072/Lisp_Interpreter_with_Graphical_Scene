@@ -22,6 +22,8 @@ public:
     Expression atom(const std::string& token);
     Expression eval(const Expression& exp);
     Expression eval();
+    const std::vector<Atom>& getGraphicsVector() const;
+
 
 protected:
     Environment env;

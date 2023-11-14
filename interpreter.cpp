@@ -12,6 +12,10 @@ Interpreter::Interpreter() {
     env.init();
 }
 
+const std::vector<Atom>& Interpreter::getGraphicsVector() const {
+    return graphics;
+}
+
 Expression Interpreter::atom(const std::string& token) {
     Atom atom;
     if (token_to_atom(token, atom)) {

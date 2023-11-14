@@ -17,6 +17,10 @@ const double PI = atan2(0, -1);
 QtInterpreter::QtInterpreter(QObject * parent): QObject(parent){
 }
 
+const std::vector<Atom>& QtInterpreter::getGraphicsVector() const {
+    return graphics;
+}
+
 void QtInterpreter::parseAndEvaluate(QString entry) {
     bool c = false;
     try {

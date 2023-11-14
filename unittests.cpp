@@ -774,3 +774,148 @@ TEST_CASE("Atom Conversion") {
     }
 }
 
+TEST_CASE("Point constructor and equality operator", "[point]") {
+    SECTION("Create Point and check equality") {
+        Expression point1(std::make_tuple(1.0, 2.0));
+        Expression point2(std::make_tuple(1.0, 2.0));
+        Expression point3(std::make_tuple(3.0, 4.0));
+
+        REQUIRE(point1 == point2);  // Same points, should be equal
+        REQUIRE_FALSE(point1 == point3);  // Different points, should not be equal
+    }
+}
+
+TEST_CASE("Line constructor and equality operator", "[line]") {
+    SECTION("Create Line and check equality") {
+        Expression line1(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0));
+        Expression line2(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0));
+        Expression line3(std::make_tuple(5.0, 6.0), std::make_tuple(7.0, 8.0));
+
+        REQUIRE(line1 == line2);  // Same lines, should be equal
+        REQUIRE_FALSE(line1 == line3);  // Different lines, should not be equal
+    }
+}
+
+TEST_CASE("Arc constructor and equality operator", "[arc]") {
+    SECTION("Create Arc and check equality") {
+        Expression arc1(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0), 1.5);
+        Expression arc2(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0), 1.5);
+        Expression arc3(std::make_tuple(5.0, 6.0), std::make_tuple(7.0, 8.0), 2.0);
+
+        REQUIRE(arc1 == arc2);  // Same arcs, should be equal
+        REQUIRE_FALSE(arc1 == arc3);  // Different arcs, should not be equal
+    }
+}
+
+TEST_CASE("Expression output stream operator", "[output]") {
+    SECTION("Print Expression") {
+        Expression point(std::make_tuple(1.0, 2.0));
+        Expression line(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0));
+        Expression arc(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0), 1.5);
+
+        std::ostringstream pointStream, lineStream, arcStream;
+        pointStream << point;
+        lineStream << line;
+        arcStream << arc;
+
+        REQUIRE(pointStream.str() == "(1,2)");
+        REQUIRE(lineStream.str() == "((1,2),(3,4))");
+        REQUIRE(arcStream.str() == "((1,2),(3,4) 1.5)");
+    }
+}
+
+TEST_CASE("Expression type checking", "[type]") {
+    SECTION("Check Expression type") {
+        Expression point(std::make_tuple(1.0, 2.0));
+        Expression line(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0));
+        Expression arc(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0), 1.5);
+
+        REQUIRE(point.head.type == PointType);
+        REQUIRE(line.head.type == LineType);
+        REQUIRE(arc.head.type == ArcType);
+    }
+}
+
+TEST_CASE("Expression equality for different types", "[equality]") {
+    SECTION("Check Expression equality for different types") {
+        Expression point(std::make_tuple(1.0, 2.0));
+        Expression line(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0));
+        Expression arc(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0), 1.5);
+
+        REQUIRE_FALSE(point == line);  // Different types, should not be equal
+        REQUIRE_FALSE(point == arc);   // Different types, should not be equal
+        REQUIRE_FALSE(line == arc);    // Different types, should not be equal
+    }
+}
+
+TEST_CASE("Expression output stream operator for different types", "[output]") {
+    SECTION("Print Point Expression") {
+        Expression point(std::make_tuple(1.0, 2.0));
+        std::ostringstream pointStream;
+        pointStream << point;
+        REQUIRE(pointStream.str() == "(1,2)");
+    }
+
+    SECTION("Print Line Expression") {
+        Expression line(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0));
+        std::ostringstream lineStream;
+        lineStream << line;
+        REQUIRE(lineStream.str() == "((1,2),(3,4))");
+    }
+
+    SECTION("Print Arc Expression") {
+        Expression arc(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0), 1.5);
+        std::ostringstream arcStream;
+        arcStream << arc;
+        REQUIRE(arcStream.str() == "((1,2),(3,4) 1.5)");
+    }
+}
+
+TEST_CASE("Expression constructors and output stream operator", "[expression]") {
+    SECTION("Point Expression") {
+        Expression point(std::make_tuple(1.0, 2.0));
+        REQUIRE(point.head.type == PointType);
+        REQUIRE(point.head.value.point_value.x == 1.0);
+        REQUIRE(point.head.value.point_value.y == 2.0);
+    }
+
+    SECTION("Line Expression") {
+        Expression line(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0));
+        REQUIRE(line.head.type == LineType);
+        REQUIRE(line.head.value.line_value.first.x == 1.0);
+        REQUIRE(line.head.value.line_value.first.y == 2.0);
+        REQUIRE(line.head.value.line_value.second.x == 3.0);
+        REQUIRE(line.head.value.line_value.second.y == 4.0);
+    }
+
+    SECTION("Arc Expression") {
+        Expression arc(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0), 1.5);
+        REQUIRE(arc.head.type == ArcType);
+        REQUIRE(arc.head.value.arc_value.center.x == 1.0);
+        REQUIRE(arc.head.value.arc_value.center.y == 2.0);
+        REQUIRE(arc.head.value.arc_value.start.x == 3.0);
+        REQUIRE(arc.head.value.arc_value.start.y == 4.0);
+        REQUIRE(arc.head.value.arc_value.span == 1.5);
+    }
+
+    SECTION("Output stream operator for different types") {
+        Expression point(std::make_tuple(1.0, 2.0));
+        Expression line(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0));
+        Expression arc(std::make_tuple(1.0, 2.0), std::make_tuple(3.0, 4.0), 1.5);
+
+        std::ostringstream output;
+
+        output << point;
+        REQUIRE(output.str() == "(1,2)");
+
+        output.str(""); // Clear the stream
+        output << line;
+        REQUIRE(output.str() == "((1,2),(3,4))");
+
+        output.str(""); // Clear the stream
+        output << arc;
+        REQUIRE(output.str() == "((1,2),(3,4) 1.5)");
+    }
+}
+
+
