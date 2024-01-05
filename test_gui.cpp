@@ -10,7 +10,6 @@
 
 #include <iostream>
 
-// ADD YOUR TESTS TO THIS CLASS !!!!!!!
 class TestGUI : public QObject {
   Q_OBJECT
 
